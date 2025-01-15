@@ -1,23 +1,35 @@
 package com.probehub.services;
 
 import com.probehub.models.Test;
+import com.probehub.models.User;
+import com.probehub.dto.TestDTO;
 import com.probehub.repositories.TestRepository;
+import com.probehub.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TestService {
 
     private final TestRepository testRepository;
+    private final UserRepository userRepository;
 
-    public TestService(TestRepository testRepository) {
+    public TestService(TestRepository testRepository, UserRepository userRepository) {
         this.testRepository = testRepository;
+        this.userRepository = userRepository;
     }
 
-    // Criar um novo teste
-    public Test createTest(Test test) {
+    // Criar um novo teste associado a um usuário
+    public Test createTest(TestDTO testDTO) {
+        User user = userRepository.findById(testDTO.getUserId())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + testDTO.getUserId()));
+
+        Test test = new Test();
+        test.setTitle(testDTO.getTitle());
+        test.setDescription(testDTO.getDescription());
+        test.setUser(user);
+
         return testRepository.save(test);
     }
 
@@ -33,11 +45,16 @@ public class TestService {
     }
 
     // Atualizar um teste existente
-    public Test updateTest(Long id, Test updatedTest) {
+    public Test updateTest(Long id, TestDTO testDTO) {
         Test existingTest = getTestById(id);
-        existingTest.setName(updatedTest.getName());
-        existingTest.setDescription(updatedTest.getDescription());
-        existingTest.setDuration(updatedTest.getDuration());
+
+        User user = userRepository.findById(testDTO.getUserId())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + testDTO.getUserId()));
+
+        existingTest.setTitle(testDTO.getTitle());
+        existingTest.setDescription(testDTO.getDescription());
+        existingTest.setUser(user);
+
         return testRepository.save(existingTest);
     }
 
