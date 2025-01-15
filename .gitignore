@@ -1,0 +1,45 @@
+# Logs
+logs/
+*.log
+*.log.*
+
+# Gradle
+.gradle/
+build/
+
+# Dependency caches
+**/build/
+!gradle-wrapper.jar
+
+# IDEs e Ferramentas
+*.iml
+.idea/
+*.swp
+*.swo
+*.vscode/
+*.classpath
+*.project
+*.settings/
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.bak
+*.orig
+
+# Configurações locais
+*.env
+.env
+
+# Arquivos de teste
+/test-output/
+
+# Outros
+*.lock
+*.jar
+*.war
+*.ear
