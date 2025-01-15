@@ -1,6 +1,6 @@
 package com.probehub.controllers;
 
-import com.probehub.models.Test;
+import com.probehub.models.ProbeTest;
 import com.probehub.dto.TestDTO;
 import com.probehub.services.TestService;
 import org.springframework.http.HttpStatus;
@@ -20,26 +20,26 @@ public class TestController {
     }
 
     @PostMapping
-    public ResponseEntity<Test> createTest(@RequestBody TestDTO testDTO) {
-        Test createdTest = testService.createTest(testDTO);
+    public ResponseEntity<ProbeTest> createTest(@RequestBody TestDTO testDTO) {
+        ProbeTest createdTest = testService.createTest(testDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTest);
     }
 
     @GetMapping
-    public ResponseEntity<List<Test>> getAllTests() {
-        List<Test> tests = testService.getAllTests();
+    public ResponseEntity<List<ProbeTest>> getAllTests() {
+        List<ProbeTest> tests = testService.getAllTests();
         return ResponseEntity.ok(tests);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Test> getTestById(@PathVariable Long id) {
-        Test test = testService.getTestById(id);
+    public ResponseEntity<ProbeTest> getTestById(@PathVariable Long id) {
+        ProbeTest test = testService.getTestById(id);
         return ResponseEntity.ok(test);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Test> updateTest(@PathVariable Long id, @RequestBody TestDTO testDTO) {
-        Test updatedTest = testService.updateTest(id, testDTO);
+    public ResponseEntity<ProbeTest> updateTest(@PathVariable Long id, @RequestBody TestDTO testDTO) {
+        ProbeTest updatedTest = testService.updateTest(id, testDTO);
         return ResponseEntity.ok(updatedTest);
     }
 
