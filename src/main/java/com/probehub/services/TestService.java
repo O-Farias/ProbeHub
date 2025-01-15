@@ -1,6 +1,6 @@
 package com.probehub.services;
 
-import com.probehub.models.Test;
+import com.probehub.models.ProbeTest;
 import com.probehub.models.User;
 import com.probehub.dto.TestDTO;
 import com.probehub.repositories.TestRepository;
@@ -21,11 +21,11 @@ public class TestService {
     }
 
     // Criar um novo teste associado a um usuário
-    public Test createTest(TestDTO testDTO) {
+    public ProbeTest createTest(TestDTO testDTO) {
         User user = userRepository.findById(testDTO.getUserId())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + testDTO.getUserId()));
 
-        Test test = new Test();
+        ProbeTest test = new ProbeTest();
         test.setTitle(testDTO.getTitle());
         test.setDescription(testDTO.getDescription());
         test.setUser(user);
@@ -34,19 +34,19 @@ public class TestService {
     }
 
     // Listar todos os testes
-    public List<Test> getAllTests() {
+    public List<ProbeTest> getAllTests() {
         return testRepository.findAll();
     }
 
     // Buscar um teste pelo ID
-    public Test getTestById(Long id) {
+    public ProbeTest getTestById(Long id) {
         return testRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Teste não encontrado com ID: " + id));
     }
 
     // Atualizar um teste existente
-    public Test updateTest(Long id, TestDTO testDTO) {
-        Test existingTest = getTestById(id);
+    public ProbeTest updateTest(Long id, TestDTO testDTO) {
+        ProbeTest existingTest = getTestById(id);
 
         User user = userRepository.findById(testDTO.getUserId())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + testDTO.getUserId()));
@@ -60,7 +60,7 @@ public class TestService {
 
     // Remover um teste
     public void deleteTest(Long id) {
-        Test test = getTestById(id);
+        ProbeTest test = getTestById(id);
         testRepository.delete(test);
     }
 }
