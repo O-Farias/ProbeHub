@@ -1,7 +1,9 @@
 package com.probehub.controllers;
 
 import com.probehub.models.Test;
+import com.probehub.dto.TestDTO;
 import com.probehub.services.TestService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +20,9 @@ public class TestController {
     }
 
     @PostMapping
-    public ResponseEntity<Test> createTest(@RequestBody Test test) {
-        Test createdTest = testService.createTest(test);
-        return ResponseEntity.ok(createdTest);
+    public ResponseEntity<Test> createTest(@RequestBody TestDTO testDTO) {
+        Test createdTest = testService.createTest(testDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdTest);
     }
 
     @GetMapping
@@ -36,9 +38,9 @@ public class TestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Test> updateTest(@PathVariable Long id, @RequestBody Test updatedTest) {
-        Test test = testService.updateTest(id, updatedTest);
-        return ResponseEntity.ok(test);
+    public ResponseEntity<Test> updateTest(@PathVariable Long id, @RequestBody TestDTO testDTO) {
+        Test updatedTest = testService.updateTest(id, testDTO);
+        return ResponseEntity.ok(updatedTest);
     }
 
     @DeleteMapping("/{id}")
